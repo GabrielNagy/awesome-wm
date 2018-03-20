@@ -20,6 +20,7 @@ local lain           = require("lain")
 --local menubar       = require("menubar")
 local freedesktop    = require("freedesktop")
 local hotkeys_popup  = require("awful.hotkeys_popup").widget
+local cyclefocus     = require('cyclefocus')
 -- }}}
 
 -- {{{ Error handling
@@ -66,10 +67,10 @@ local altkey       = "Mod1"
 local terminal     = "konsole" or "xterm"
 local editor       = os.getenv("EDITOR") or "vi"
 local gui_editor   = "gvim"
-local browser      = "firefox_dev"
+local browser      = "/opt/firefox/firefox"
 
 awful.util.terminal = terminal
-awful.util.tagnames = { "www", "bb4svn", "bbdashboard", "emacs", "dev", "media"}
+awful.util.tagnames = { "www", "dev", "write", "emacs", "rdp", "media"}
 awful.layout.layouts = {
     awful.layout.suit.floating,
     awful.layout.suit.tile,
@@ -217,9 +218,9 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
     -- Tag browsing
-    awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
+    awful.key({ modkey,           }, "j",   awful.tag.viewprev,
               {description = "view previous", group = "tag"}),
-    awful.key({ modkey,           }, "Right",  awful.tag.viewnext,
+    awful.key({ modkey,           }, "k",  awful.tag.viewnext,
               {description = "view next", group = "tag"}),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
               {description = "go back", group = "tag"}),
@@ -231,30 +232,40 @@ globalkeys = awful.util.table.join(
               {description = "view  previous nonempty", group = "tag"}),
 
     -- Default client focus
-    awful.key({ modkey,           }, "j",
-        function ()
-            awful.client.focus.byidx( 1)
-        end,
-        {description = "focus next by index", group = "client"}
+    awful.key({ modkey,           }, "Right",
+	function ()
+	    awful.client.focus.byidx( 1)
+	end,
+	{description = "focus next by index", group = "client"}
     ),
-    awful.key({ modkey,           }, "k",
-        function ()
-            awful.client.focus.byidx(-1)
-        end,
-        {description = "focus previous by index", group = "client"}
+    awful.key({ modkey,           }, "Left",
+	function ()
+	    awful.client.focus.byidx(-1)
+	end,
+	{description = "focus previous by index", group = "client"}
     ),
 
+    -- cycle through clients
+    -- modkey+Tab: cycle through all clients.
+    awful.key({ modkey }, "Tab", function(c)
+          cyclefocus.cycle({modifier="Super_L"})
+    end),
+    -- modkey+Shift+Tab: backwards
+    awful.key({ modkey, "Shift" }, "Tab", function(c)
+          cyclefocus.cycle({modifier="Super_L"})
+    end),
     -- By direction client focus
-    awful.key({ modkey }, "j",
-        function()
-            awful.client.focus.bydirection("down")
-            if client.focus then client.focus:raise() end
-        end),
-    awful.key({ modkey }, "k",
-        function()
-            awful.client.focus.bydirection("up")
-            if client.focus then client.focus:raise() end
-        end),
+   --awful.key({ modkey }, "j",
+
+        --function()
+            --awful.client.focus.bydirection("down")
+            --if client.focus then client.focus:raise() end
+        --end),
+    --awful.key({ modkey }, "k",
+        --function()
+            --awful.client.focus.bydirection("up")
+            --if client.focus then client.focus:raise() end
+        --end),
     awful.key({ modkey }, "h",
         function()
             awful.client.focus.bydirection("left")
@@ -279,14 +290,14 @@ globalkeys = awful.util.table.join(
               {description = "focus the previous screen", group = "screen"}),
     awful.key({ modkey,           }, "u", awful.client.urgent.jumpto,
               {description = "jump to urgent client", group = "client"}),
-    awful.key({ modkey,           }, "Tab",
-        function ()
-            awful.client.focus.history.previous()
-            if client.focus then
-                client.focus:raise()
-            end
-        end,
-        {description = "go back", group = "client"}),
+    -- awful.key({ modkey,           }, "Tab",
+    --     function ()
+    --         awful.client.focus.history.previous()
+    --         if client.focus then
+    --             client.focus:raise()
+    --         end
+    --     end,
+    --     {description = "go back", group = "client"}),
 
     -- Show/Hide Wibox
     awful.key({ modkey }, "b", function ()
@@ -570,8 +581,8 @@ awful.rules.rules = {
       properties = { titlebars_enabled = true } },
 
     -- Set Firefox to always map on the first tag on screen 1.
-    { rule = { class = "Firefox" },
-      properties = { screen = 1, tag = screen[1].tags[1] } },
+    --{ rule = { class = "Firefox" },
+      --properties = { screen = 1, tag = screen[1].tags[1] } },
 
     { rule = { class = "Pidgin" },
       properties = { screen = 1, tag = screen[1].tags[6] } },
@@ -580,7 +591,7 @@ awful.rules.rules = {
       properties = { screen = 1, tag = screen[1].tags[6] } },
 
     { rule = { class = "emacs" },
-      properties = { screen = 1, tag = screen[1].tags[5] } },
+      properties = { screen = 1, tag = screen[1].tags[4] } },
 
     { rule = { class = "Gimp", role = "gimp-image-window" },
           properties = { maximized = true } },
@@ -672,4 +683,18 @@ client.connect_signal("focus",
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
 awful.util.spawn_with_shell("xscreensaver -no-splash")
---awful.util.spawn_with_shell("xrandr --output DisplayPort-0 --primary --output eDP --auto --right-of DisplayPort-0 --output DisplayPort-1 --right-of eDP")
+-- Autorun programs
+autorun = true
+autorunApps =
+{
+   "whatpulse",
+   "blockify",
+   "nm-applet",
+   "shutter --min-at-startup",
+}
+if autorun then
+   for app = 1, #autorunApps do
+       awful.util.spawn(autorunApps[app])
+   end
+end
+-- awful.util.spawn_with_shell("xrandr --output DisplayPort-2 --primary --output eDP --auto --right-of DisplayPort-2 --output DisplayPort-1 --right-of eDP")

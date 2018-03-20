@@ -90,6 +90,13 @@ theme.titlebar_maximized_button_normal_inactive = theme.dir .. "/icons/titlebar/
 local markup = lain.util.markup
 local separators = lain.util.separators
 
+local tram = awful.widget.watch(
+   {"sh", "-c", "curl -s 'http://www.ratt.ro/txt/afis_msg.php?id_traseu=2846&id_statie=7981' 2>&1 | grep -oP 'Sosire.{0,10}' | awk -F ': ' '{print $2}' | cut -d '<' -f 1 | head -1 | xargs echo -n Tv7M: "}, 30,
+    function(widget, stdout)
+        widget:set_markup(" " .. markup.font(theme.font, stdout))
+    end
+)
+
 -- Textclock
 local clockicon = wibox.widget.imagebox(theme.widget_clock)
 local clock = awful.widget.watch(
@@ -103,7 +110,7 @@ local clock = awful.widget.watch(
 theme.cal = lain.widget.calendar({
     attach_to = { clock.widget },
     notification_preset = {
-        font = "xos4 Terminus 10",
+        font = "Terminus 10",
         fg   = theme.fg_normal,
         bg   = theme.bg_normal
     }
@@ -180,7 +187,7 @@ local temp = lain.widget.temp({
 local fsicon = wibox.widget.imagebox(theme.widget_hdd)
 theme.fs = lain.widget.fs({
     options  = "--exclude-type=tmpfs",
-    notification_preset = { fg = theme.fg_normal, bg = theme.bg_normal, font = "xos4 Terminus 10" },
+    notification_preset = { fg = theme.fg_normal, bg = theme.bg_normal, font = "Terminus 10" },
     settings = function()
         widget:set_markup(markup.font(theme.font, " " .. fs_now.used .. "% "))
     end
@@ -292,24 +299,25 @@ function theme.at_screen_connect(s)
             layout = wibox.layout.fixed.horizontal,
             wibox.widget.systray(),
             spr,
+            arrl_ld,
+            wibox.container.background(tram, theme.bg_focus),
             --arrl_ld,
             --wibox.container.background(mpdicon, theme.bg_focus),
             --wibox.container.background(theme.mpd.widget, theme.bg_focus),
+            arrl_dl,
+            volicon,
+            theme.volume.widget,
             arrl_ld,
-            wibox.container.background(volicon, theme.bg_focus),
-            wibox.container.background(theme.volume.widget, theme.bg_focus),
-            --arrl_ld,
             --wibox.container.background(mailicon, theme.bg_focus),
             --wibox.container.background(mail.widget, theme.bg_focus),
+            wibox.container.background(memicon, theme.bg_focus),
+            wibox.container.background(mem.widget, theme.bg_focus),
             arrl_dl,
-            memicon,
-            mem.widget,
+            cpuicon,
+            cpu.widget,
             arrl_ld,
-            wibox.container.background(cpuicon, theme.bg_focus),
-            wibox.container.background(cpu.widget, theme.bg_focus),
-            --arrl_dl,
-            --tempicon,
-            --temp.widget,
+            wibox.container.background(tempicon, theme.bg_focus),
+            wibox.container.background(temp.widget, theme.bg_focus),
             arrl_dl,
             fsicon,
             theme.fs.widget,

@@ -39,7 +39,7 @@ local function factory(args)
     local ticks      = args.ticks or false
     local ticks_size = args.ticks_size or 7
 
-    alsabar.cmd                 = args.cmd or "amixer"
+    alsabar.cmd                 = args.cmd or "amixer -c1"
     alsabar.channel             = args.channel or "Master"
     alsabar.togglechannel       = args.togglechannel
     alsabar.colors              = args.colors or alsabar.colors
