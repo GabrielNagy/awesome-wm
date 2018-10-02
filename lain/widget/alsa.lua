@@ -21,7 +21,7 @@ local function factory(args)
     local timeout  = args.timeout or 5
     local settings = args.settings or function() end
 
-    alsa.cmd           = args.cmd or "amixer -c1"
+    alsa.cmd           = args.cmd or "amixer -c0"
     alsa.channel       = args.channel or "Master"
     alsa.togglechannel = args.togglechannel
 
