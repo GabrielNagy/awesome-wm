@@ -64,9 +64,9 @@ run_once({ "urxvtd", "unclutter -root" })
 local chosen_theme = "powerarrow-dark"
 local modkey       = "Mod4"
 local altkey       = "Mod1"
-local terminal     = "konsole" or "xterm"
+local terminal     = "gnome-terminal" or "xterm"
 local editor       = os.getenv("EDITOR") or "vi"
-local gui_editor   = "gvim"
+local gui_editor   = "emacs25"
 local browser      = "/opt/firefox/firefox"
 
 awful.util.terminal = terminal

@@ -90,6 +90,13 @@ theme.titlebar_maximized_button_normal_inactive = theme.dir .. "/icons/titlebar/
 local markup = lain.util.markup
 local separators = lain.util.separators
 
+local dem_trunk = awful.widget.watch(
+   {"sh", "-c", "curl -s 'http://lteomci.inside.nsn.com/view/00_TRUNK/view/10_BSTAT+trunk/api/json?tree=description' 2>&1 | grep -Eoh 'trunk is unlocked|trunk is locked' | xargs echo -n BSTAT:"}, 60,
+    function(widget, stdout)
+        widget:set_markup(" " .. markup.font(theme.font, stdout))
+    end
+)
+
 local tram = awful.widget.watch(
    {"sh", "-c", "curl -s 'http://www.ratt.ro/txt/afis_msg.php?id_traseu=2846&id_statie=7981' 2>&1 | grep -oP 'Sosire.{0,10}' | awk -F ': ' '{print $2}' | cut -d '<' -f 1 | head -1 | xargs echo -n Tv7M: "}, 30,
     function(widget, stdout)
@@ -282,7 +289,7 @@ function theme.at_screen_connect(s)
     s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons)
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s, height = 18, bg = theme.bg_normal, fg = theme.fg_normal })
+    s.mywibox = awful.wibar({ position = "bottom", screen = s, height = 18, bg = theme.bg_normal, fg = theme.fg_normal })
 
     -- Add widgets to the wibox
     s.mywibox:setup {
@@ -298,6 +305,7 @@ function theme.at_screen_connect(s)
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             wibox.widget.systray(),
+	    dem_trunk,
             spr,
             arrl_ld,
             wibox.container.background(tram, theme.bg_focus),
