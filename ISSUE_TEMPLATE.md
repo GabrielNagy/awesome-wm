@@ -18,9 +18,9 @@ and, if you still don't have an answer, you can ask here.
 
 First do
 
-1. search the [issues section](https://github.com/copycat-killer/awesome-copycats/issues) and
-2. search [lain issues section](https://github.com/copycat-killer/lain/issues) and
-3. search [lain wiki](https://github.com/copycat-killer/lain/wiki) and
+1. search the [issues section](https://github.com/lcpz/awesome-copycats/issues) and
+2. search [lain issues section](https://github.com/lcpz/lain/issues) and
+3. search [lain wiki](https://github.com/lcpz/lain/wiki) and
 4. try with default Awesome configuration, usually located in `/etc/xdg/awesome/rc.lua` or `/usr/local/etc/xdg/awesome/rc.lua`.
 
 If you can't find a solution and your issue doesn't happen with default configuration, then go ahead and provide:
@@ -35,18 +35,18 @@ If you can't find a solution and your issue doesn't happen with default configur
 Then something went wrong during its initialisation. You have to provide X error
 log. There are two ways:
 
-* (Physically) Restart X like this:
+1. Restart X like this:
   ```shell
   startx -- -keeptty -nolisten tcp > $HOME/.xorg.log 2>&1
   ```
   the error log will be output into `$HOME/.xorg.log`.
 
-* (Virtually) Use [Xephyr](https://wikipedia.org/wiki/Xephyr):
+2. Use [Xephyr](https://wikipedia.org/wiki/Xephyr):
   ```shell
   # set screen size as you like
   Xephyr :1 -screen 1280x800 2> stdout.txt & DISPLAY=:1 awesome
   ```
-  the error log will be output in the file `stdout.txt`.
+  the error log will be output into the file `stdout.txt`.
 
 Before reporting, read the log and see if you can solve it yourself. If you can't, then follow the [previous section](#issuesec).
 

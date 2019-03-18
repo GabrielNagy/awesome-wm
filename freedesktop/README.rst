@@ -9,7 +9,7 @@ Freedesktop.org menu and desktop icons support for Awesome WM 4.x
 :Maintainer: Luca CPZ
 :Version: git
 :License: GNU-GPL2_
-:Source: https://github.com/copycat-killer/awesome-freedesktop
+:Source: https://github.com/lcpz/awesome-freedesktop
 
 Description
 -----------
@@ -47,6 +47,6 @@ Read the wiki_.
 .. _GNU-GPL2: http://www.gnu.org/licenses/gpl-2.0.html
 .. _awesome-freedesktop: https://github.com/terceiro/awesome-freedesktop
 .. _Awesome: https://github.com/awesomeWM/awesome
-.. _branches: https://github.com/copycat-killer/awesome-freedesktop/branches
+.. _branches: https://github.com/lcpz/awesome-freedesktop/branches
 .. _Menubar: https://github.com/awesomeWM/awesome/tree/master/lib/menubar
-.. _wiki: https://github.com/copycat-killer/awesome-freedesktop/wiki
+.. _wiki: https://github.com/lcpz/awesome-freedesktop/wiki
