@@ -4,7 +4,7 @@ So that I can help you quickly and without having to redirect you here.
 
 # If you have an issue
 
-**Please read the [wiki](https://github.com/copycat-killer/lain/wiki) and search the [Issues section](https://github.com/copycat-killer/lain/issues) first.**
+**Please read the [wiki](https://github.com/lcpz/lain/wiki) and search the [Issues section](https://github.com/lcpz/lain/issues) first.**
 
 If you can't find a solution there, then go ahead and provide:
 

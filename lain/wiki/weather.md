@@ -1,6 +1,6 @@
 ## Usage
 
-[Read here.](https://github.com/copycat-killer/lain/wiki/Widgets#usage)
+[Read here.](https://github.com/lcpz/lain/wiki/Widgets#usage)
 
 ### Description
 
@@ -20,12 +20,13 @@ Variable | Meaning | Type | Default
 --- | --- | --- | ---
 `timeout` | Refresh timeout seconds for current weather status | number | 900 (15 min)
 `timeout_forecast` | Refresh timeout seconds for forecast notification | number | 86400 (24 hrs)
-`current_call` | Command to fetch weather status data from the API | string | see `default_current_call` below
-`forecast_call` | Command to fetch forecast data from the API | string | see `default_forecast_call` below
+`current_call` | Command to fetch weather status data from the API | string | see `default_current_call`
+`forecast_call` | Command to fetch forecast data from the API | string | see `default_forecast_call`
 `city_id` | API city code | number | not set
+`utc_offset` | UTC time offset | function | see [here](https://github.com/lcpz/lain/blob/master/widget/weather.lua#L35-L39)
 `units` | Temperature units system | string | "metric"
 `lang` | API data localization | string | "en"
-`cnt` | Forecast days interval | number | 5
+`cnt` | Forecast days interval | integer | 5
 `date_cmd` | Forecast notification format style | string | "date -u -d @%d +'%%a %%d'"
 `icons_path` | Icons path | string | `lain/icons/openweathermap`
 `notification_preset` | Preset for notifications | table | empty table
@@ -103,7 +104,7 @@ Variable | Meaning | Type | Default
        return string.format("<b>%s</b>: %s, %d - %d ", day, desc, tmin, tmax)
    end
    ```
-   See [here](https://github.com/copycat-killer/lain/issues/186#issuecomment-203400918) for a complete customization example.
+   See [here](https://github.com/lcpz/lain/issues/186#issuecomment-203400918) for a complete customization example.
 
 - ``followtag``
 
