@@ -529,11 +529,11 @@ globalkeys = my_table.join(
 
     -- Change keyboard layout (similar to window$)
     awful.key({ altkey }, "Shift_L",  function () awful.spawn.with_shell("xkb-switch -n") end,
-              {description = "list emojis", group = "hotkeys"}),
+              {description = "switch keyboard layout", group = "hotkeys"}),
 
     -- Change keyboard layout (the other way around)
     awful.key({ "Shift" }, "Alt_L",  function () awful.spawn.with_shell("xkb-switch -n") end,
-              {description = "list emojis", group = "hotkeys"}),
+              {description = "switch keyboard layout", group = "hotkeys"}),
 
     -- Show emoji list
     awful.key({ modkey }, "`", function () awful.spawn.with_shell("dmenuunicode") end,
