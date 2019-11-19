@@ -38,6 +38,7 @@ theme.menu_height                               = dpi(16)
 theme.menu_width                                = dpi(140)
 theme.awesome_icon                              = theme.dir .."/icons/awesome.png"
 theme.menu_submenu_icon                         = theme.dir .. "/icons/submenu.png"
+theme.notification_icon_size                    = dpi(64)
 theme.layout_txt_tile                           = "[t]"
 theme.layout_txt_tileleft                       = "[l]"
 theme.layout_txt_tilebottom                     = "[b]"
